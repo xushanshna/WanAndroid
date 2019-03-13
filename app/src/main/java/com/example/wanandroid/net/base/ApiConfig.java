@@ -1,4 +1,4 @@
-package com.example.wanandroid.net;
+package com.example.wanandroid.net.base;
 
 /**
  * Created by Administrator on 2019/3/13 0013.

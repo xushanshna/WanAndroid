@@ -1,4 +1,4 @@
-package com.example.wanandroid.net;
+package com.example.wanandroid.net.base;
 
 import java.util.concurrent.TimeUnit;
 

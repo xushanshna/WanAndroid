@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,7 +14,10 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.wanandroid.R;
+import com.example.wanandroid.adapter.HomeAdapter;
 import com.example.wanandroid.bean.BannerBean;
+import com.example.wanandroid.bean.BaseArticle;
+import com.example.wanandroid.bean.HomeArticle;
 import com.example.wanandroid.net.ApiLoader;
 import com.orhanobut.logger.Logger;
 import com.youth.banner.Banner;
@@ -35,11 +40,19 @@ public class HomeFragment extends Fragment {
     private Activity activity;
     private Unbinder unbinder;
     private ApiLoader apiLoader;
-    private List<BannerBean> bannerBeanList = new ArrayList<>();
-    private List<String> images = new ArrayList<>();
-    private List<String> titles = new ArrayList<>();
+
+    private List<BannerBean> bannerBeanList = new ArrayList<>();//banner
+    private List<String> images = new ArrayList<>();//banner图片
+    private List<String> titles = new ArrayList<>();//banner文字
+
+    private HomeAdapter homeAdapter;
+    private List<HomeArticle> articleList = new ArrayList<>();//文章列表
+    private int currPage = -1;//当前页数
+
     @BindView(R.id.home_banner)
     Banner banner;
+    @BindView(R.id.recycler_view)
+    RecyclerView recyclerView;
 
 
     public HomeFragment() {
@@ -70,7 +83,9 @@ public class HomeFragment extends Fragment {
         unbinder = ButterKnife.bind(this, view);
         apiLoader = new ApiLoader();
         initBanner();
-        getBanner();//获取banner数据
+        getBannerData();//获取banner数据
+        initRv();
+        getHomeListData();//获取列表数据
 
         return view;
     }
@@ -87,7 +102,20 @@ public class HomeFragment extends Fragment {
         });
     }
 
-    private void getBanner() {
+    private void startBanner() {
+        banner.setImages(images);//设置图片集合
+        banner.setBannerTitles(titles);
+        banner.start();//banner设置方法全部调用完毕时最后调用
+    }
+
+    private void initRv() {
+        homeAdapter = new HomeAdapter(activity, articleList);
+        recyclerView.setLayoutManager(new LinearLayoutManager(activity));
+        recyclerView.setAdapter(homeAdapter);
+
+    }
+
+    private void getBannerData() {
         apiLoader.getBanner()
                 .subscribe(new Action1<List<BannerBean>>() {
                     @Override
@@ -110,12 +138,19 @@ public class HomeFragment extends Fragment {
                 });
     }
 
-
-    private void startBanner() {
-        banner.setImages(images);//设置图片集合
-        banner.setBannerTitles(titles);
-        banner.start();//banner设置方法全部调用完毕时最后调用
+    private void getHomeListData() {
+        apiLoader.getHomeList(++currPage)
+                .subscribe(new Action1<BaseArticle<List<HomeArticle>>>() {
+                    @Override
+                    public void call(BaseArticle<List<HomeArticle>> listBaseArticle) {
+                        articleList.clear();
+                        articleList.addAll(listBaseArticle.getDatas());
+//                        articleList = listBaseArticle.getDatas();
+                        homeAdapter.notifyDataSetChanged();
+                    }
+                });
     }
+
 
     @Override
     public void onDestroyView() {

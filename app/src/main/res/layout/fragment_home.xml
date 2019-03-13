@@ -11,14 +11,14 @@
         android:id="@+id/home_banner"
         android:layout_width="match_parent"
         android:layout_height="@dimen/home_banner_size"
-        app:delay_time="2000"
-        app:is_auto_play="true"
+        app:delay_time="3000"
         app:indicator_drawable_selected="@drawable/banner_indicator_selected"
-        >
+        app:is_auto_play="true">
 
     </com.youth.banner.Banner>
 
 
     <!--list-->
+    <include layout="@layout/list_rv" />
 
 </LinearLayout>

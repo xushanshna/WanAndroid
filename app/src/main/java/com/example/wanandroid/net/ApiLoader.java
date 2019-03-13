@@ -1,6 +1,9 @@
 package com.example.wanandroid.net;
 
 import com.example.wanandroid.bean.BannerBean;
+import com.example.wanandroid.bean.BaseArticle;
+import com.example.wanandroid.bean.HomeArticle;
+import com.example.wanandroid.net.base.ApiServiceManager;
 import com.example.wanandroid.net.base.TargetData;
 
 import java.util.List;
@@ -30,5 +33,10 @@ public class ApiLoader {
     public Observable<List<BannerBean>> getBanner() {
         return getObservable(service.getBanner())
                 .map(new TargetData<List<BannerBean>>());
+    }
+
+    public Observable<BaseArticle<List<HomeArticle>>> getHomeList(int page) {
+        return getObservable(service.getHomeList(page)
+                .map(new TargetData<BaseArticle<List<HomeArticle>>>()));
     }
 }
