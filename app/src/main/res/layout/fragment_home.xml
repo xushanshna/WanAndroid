@@ -1,13 +1,24 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="com.example.wanandroid.fragment.HomeFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <!--banner-->
+    <com.youth.banner.Banner
+        android:id="@+id/home_banner"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/home" />
+        android:layout_height="@dimen/home_banner_size"
+        app:delay_time="2000"
+        app:is_auto_play="true"
+        app:indicator_drawable_selected="@drawable/banner_indicator_selected"
+        >
 
-</FrameLayout>
+    </com.youth.banner.Banner>
+
+
+    <!--list-->
+
+</LinearLayout>
