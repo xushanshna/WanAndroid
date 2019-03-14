@@ -7,7 +7,7 @@ import java.util.List;
  * 首页文章
  */
 
-public class HomeArticle {
+public class ArticleBean {
 
     /**
      * apkLink :

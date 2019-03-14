@@ -20,7 +20,7 @@ import com.example.wanandroid.adapter.HomeAdapter;
 import com.example.wanandroid.adapter.base.BaseRvAdapter;
 import com.example.wanandroid.bean.BannerBean;
 import com.example.wanandroid.bean.BaseArticle;
-import com.example.wanandroid.bean.HomeArticle;
+import com.example.wanandroid.bean.ArticleBean;
 import com.example.wanandroid.net.ApiLoader;
 import com.orhanobut.logger.Logger;
 import com.youth.banner.Banner;
@@ -49,7 +49,7 @@ public class HomeFragment extends Fragment {
     private List<String> titles = new ArrayList<>();//banner文字
 
     private HomeAdapter homeAdapter;
-    private List<HomeArticle> articleList = new ArrayList<>();//文章列表
+    private List<ArticleBean> articleList = new ArrayList<>();//文章列表
     private int currPage = -1;//当前页数
 
     @BindView(R.id.home_banner)
@@ -154,9 +154,9 @@ public class HomeFragment extends Fragment {
 
     private void getHomeListData() {
         apiLoader.getHomeList(++currPage)
-                .subscribe(new Action1<BaseArticle<List<HomeArticle>>>() {
+                .subscribe(new Action1<BaseArticle<List<ArticleBean>>>() {
                     @Override
-                    public void call(BaseArticle<List<HomeArticle>> listBaseArticle) {
+                    public void call(BaseArticle<List<ArticleBean>> listBaseArticle) {
                         articleList.clear();
                         articleList.addAll(listBaseArticle.getDatas());
                         homeAdapter.notifyDataSetChanged();

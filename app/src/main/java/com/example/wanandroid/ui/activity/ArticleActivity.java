@@ -13,7 +13,7 @@ import com.example.wanandroid.R;
 import com.example.wanandroid.adapter.ArticleAdapter;
 import com.example.wanandroid.adapter.base.BaseRvAdapter;
 import com.example.wanandroid.bean.BaseArticle;
-import com.example.wanandroid.bean.HomeArticle;
+import com.example.wanandroid.bean.ArticleBean;
 import com.example.wanandroid.net.ApiLoader;
 import com.example.wanandroid.utils.callback.InfiniteScrollListener;
 
@@ -36,7 +36,7 @@ public class ArticleActivity extends AppCompatActivity {
     SwipeRefreshLayout swipeRefreshLayout;
 
     private int id;//公众号id
-    private List<HomeArticle> datas = new ArrayList<>();
+    private List<ArticleBean> datas = new ArrayList<>();
     private ArticleAdapter adapter;
     private int currPage = 0;
     private boolean isNoMoreData = false;
@@ -114,9 +114,9 @@ public class ArticleActivity extends AppCompatActivity {
         if (id == -1) return;
         ApiLoader apiLoader = new ApiLoader();
         apiLoader.getArticleList(id, currPage)
-                .subscribe(new Action1<BaseArticle<List<HomeArticle>>>() {
+                .subscribe(new Action1<BaseArticle<List<ArticleBean>>>() {
                     @Override
-                    public void call(BaseArticle<List<HomeArticle>> listBaseArticle) {
+                    public void call(BaseArticle<List<ArticleBean>> listBaseArticle) {
                         datas.addAll(listBaseArticle.getDatas());
                         adapter.notifyDataSetChanged();
                         swipeRefreshLayout.setRefreshing(false);

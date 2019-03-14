@@ -7,7 +7,7 @@ import android.widget.TextView;
 import com.example.wanandroid.R;
 import com.example.wanandroid.adapter.base.BaseRvAdapter;
 import com.example.wanandroid.adapter.base.BaseViewHolder;
-import com.example.wanandroid.bean.HomeArticle;
+import com.example.wanandroid.bean.ArticleBean;
 
 import java.util.List;
 
@@ -16,10 +16,10 @@ import java.util.List;
  * 首页列表
  */
 
-public class HomeAdapter extends BaseRvAdapter<HomeArticle> {
+public class HomeAdapter extends BaseRvAdapter<ArticleBean> {
 
 
-    public HomeAdapter(Context context, List<HomeArticle> datas, int layoutId) {
+    public HomeAdapter(Context context, List<ArticleBean> datas, int layoutId) {
         super(context, datas, layoutId);
     }
 
@@ -37,7 +37,7 @@ public class HomeAdapter extends BaseRvAdapter<HomeArticle> {
     }
 
     @Override
-    protected void bindData(BaseViewHolder holder, HomeArticle data, int position) {
+    protected void bindData(BaseViewHolder holder, ArticleBean data, int position) {
         TextView textView = holder.getView(R.id.home_item_tv_title);
         textView.setText(data.getTitle());
     }

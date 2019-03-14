@@ -2,7 +2,7 @@ package com.example.wanandroid.net;
 
 import com.example.wanandroid.bean.BannerBean;
 import com.example.wanandroid.bean.BaseArticle;
-import com.example.wanandroid.bean.HomeArticle;
+import com.example.wanandroid.bean.ArticleBean;
 import com.example.wanandroid.bean.TabBean;
 import com.example.wanandroid.bean.WxBean;
 import com.example.wanandroid.net.base.ApiServiceManager;
@@ -39,18 +39,18 @@ public class ApiLoader {
                 .map(new TargetData<List<BannerBean>>());
     }
 
-    public Observable<BaseArticle<List<HomeArticle>>> getHomeList(int page) {
+    public Observable<BaseArticle<List<ArticleBean>>> getHomeList(int page) {
         return getObservable(service.getHomeList(page)
-                .map(new TargetData<BaseArticle<List<HomeArticle>>>()));
+                .map(new TargetData<BaseArticle<List<ArticleBean>>>()));
     }
 
     public Observable<List<WxBean>> getWx() {
         return getObservable(service.getWx().map(new TargetData<List<WxBean>>()));
     }
 
-    public Observable<BaseArticle<List<HomeArticle>>> getArticleList(int id, int page) {
+    public Observable<BaseArticle<List<ArticleBean>>> getArticleList(int id, int page) {
         return getObservable(service.getArticleList(id, page))
-                .map(new TargetData<BaseArticle<List<HomeArticle>>>());
+                .map(new TargetData<BaseArticle<List<ArticleBean>>>());
     }
 
     public Observable<List<TabBean>> getTab() {

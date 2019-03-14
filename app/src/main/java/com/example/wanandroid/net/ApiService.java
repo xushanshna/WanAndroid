@@ -3,7 +3,7 @@ package com.example.wanandroid.net;
 import com.example.wanandroid.bean.BannerBean;
 import com.example.wanandroid.bean.BaseArticle;
 import com.example.wanandroid.bean.BaseBean;
-import com.example.wanandroid.bean.HomeArticle;
+import com.example.wanandroid.bean.ArticleBean;
 import com.example.wanandroid.bean.TabBean;
 import com.example.wanandroid.bean.WxBean;
 
@@ -25,7 +25,7 @@ public interface ApiService {
 
     //获取首页文章列表
     @GET("article/list/{page}/json")
-    Observable<BaseBean<BaseArticle<List<HomeArticle>>>> getHomeList(
+    Observable<BaseBean<BaseArticle<List<ArticleBean>>>> getHomeList(
             @Path("page") int page
     );
 
@@ -35,7 +35,7 @@ public interface ApiService {
 
     //公众号文章列表
     @GET("wxarticle/list/{id}/{page}/json")
-    Observable<BaseBean<BaseArticle<List<HomeArticle>>>> getArticleList(
+    Observable<BaseBean<BaseArticle<List<ArticleBean>>>> getArticleList(
             @Path("id") int id,
             @Path("page") int page
     );
