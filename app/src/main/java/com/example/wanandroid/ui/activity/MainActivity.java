@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
         list.add(SystemFragment.newInstance(getString(R.string.system)));
         list.add(WeChatFragment.newInstance(getString(R.string.wechat)));
         list.add(NavFragment.newInstance(getString(R.string.nav)));
-        list.add(ProjectFragment.newInstance(getString(R.string.project)));
+        list.add(ProjectFragment.newInstance());
         viewPager.setAdapter(new ViewPagerAdapter(getSupportFragmentManager(), list));
         initListener();
     }

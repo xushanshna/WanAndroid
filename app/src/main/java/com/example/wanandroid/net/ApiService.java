@@ -4,6 +4,7 @@ import com.example.wanandroid.bean.BannerBean;
 import com.example.wanandroid.bean.BaseArticle;
 import com.example.wanandroid.bean.BaseBean;
 import com.example.wanandroid.bean.HomeArticle;
+import com.example.wanandroid.bean.TabBean;
 import com.example.wanandroid.bean.WxBean;
 
 import java.util.List;
@@ -38,5 +39,9 @@ public interface ApiService {
             @Path("id") int id,
             @Path("page") int page
     );
+
+    //获取项目分类
+    @GET("project/tree/json")
+    Observable<BaseBean<List<TabBean>>> getTab();
 
 }
