@@ -1,9 +1,9 @@
 package com.example.wanandroid.net;
 
+import com.example.wanandroid.bean.ArticleBean;
 import com.example.wanandroid.bean.BannerBean;
 import com.example.wanandroid.bean.BaseArticle;
 import com.example.wanandroid.bean.BaseBean;
-import com.example.wanandroid.bean.ArticleBean;
 import com.example.wanandroid.bean.TabBean;
 import com.example.wanandroid.bean.WxBean;
 
@@ -11,6 +11,7 @@ import java.util.List;
 
 import retrofit2.http.GET;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 import rx.Observable;
 
 /**
@@ -43,5 +44,12 @@ public interface ApiService {
     //获取项目分类
     @GET("project/tree/json")
     Observable<BaseBean<List<TabBean>>> getTab();
+
+    //获取项目列表
+    @GET("project/list/{page}/json")
+    Observable<BaseBean<BaseArticle<List<ArticleBean>>>> getProject(
+            @Path("page") int page,
+            @Query("cid") int cid
+    );
 
 }
