@@ -7,24 +7,20 @@
     tools:context="com.example.wanandroid.MainActivity">
 
 
+    <!--CoordinatorLayout是加强版的framelayout-->
     <android.support.design.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <android.support.design.widget.AppBarLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+        <include layout="@layout/title_toolbar" />
 
-            <include layout="@layout/title_toolbar" />
-        </android.support.design.widget.AppBarLayout>
-
+        <!--app:layout_behavior="@string/appbar_scrolling_view_behavior"-->
         <android.support.v4.view.ViewPager
             android:id="@+id/main_vp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior">
-
-        </android.support.v4.view.ViewPager>
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+             />
 
 
         <!--itemBackground 取消点击水波纹效果-->
@@ -43,6 +39,7 @@
             app:labelVisibilityMode="labeled"
             app:layout_behavior="com.example.wanandroid.widget.BottomNavigationBehavior"
             app:menu="@menu/bottom_nav" />
+
     </android.support.design.widget.CoordinatorLayout>
 
 

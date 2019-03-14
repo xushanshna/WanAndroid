@@ -2,6 +2,7 @@ package com.example.wanandroid.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -9,7 +10,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.example.wanandroid.R;
-import com.example.wanandroid.adapter.HomeAdapter;
+import com.example.wanandroid.adapter.ArticleAdapter;
 import com.example.wanandroid.adapter.base.BaseRvAdapter;
 import com.example.wanandroid.bean.BaseArticle;
 import com.example.wanandroid.bean.HomeArticle;
@@ -30,10 +31,13 @@ public class ArticleActivity extends AppCompatActivity {
     TextView title;
     @BindView(R.id.recycler_view)
     RecyclerView recyclerView;
+    @BindView(R.id.swipe_refresh)
+    SwipeRefreshLayout swipeRefreshLayout;
 
     private int id;//公众号id
     private List<HomeArticle> datas = new ArrayList<>();
-    private HomeAdapter adapter;
+    private ArticleAdapter adapter;
+    private int currPage = 0;
 
 
     @Override
@@ -48,9 +52,10 @@ public class ArticleActivity extends AppCompatActivity {
     }
 
     private void init() {
-        adapter = new HomeAdapter(this, datas, R.layout.home_item);
+        adapter = new ArticleAdapter(this, datas, R.layout.home_item);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
+        recyclerView.setHasFixedSize(true);
         adapter.setOnItemClickListner(new BaseRvAdapter.OnItemClickListner() {
             @Override
             public void onItemClick(View v, int position) {
@@ -60,18 +65,29 @@ public class ArticleActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        swipeRefreshLayout.setColorSchemeResources(R.color.mainColor);
+        swipeRefreshLayout.setRefreshing(true);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                currPage = 0;
+                getArticleData();
+            }
+        });
     }
 
     private void getArticleData() {
         if (id == -1) return;
         ApiLoader apiLoader = new ApiLoader();
-        apiLoader.getArticleList(id, 0)
+        apiLoader.getArticleList(id, currPage)
                 .subscribe(new Action1<BaseArticle<List<HomeArticle>>>() {
                     @Override
                     public void call(BaseArticle<List<HomeArticle>> listBaseArticle) {
                         datas.clear();
                         datas.addAll(listBaseArticle.getDatas());
                         adapter.notifyDataSetChanged();
+                        swipeRefreshLayout.setRefreshing(false);
                     }
                 });
     }

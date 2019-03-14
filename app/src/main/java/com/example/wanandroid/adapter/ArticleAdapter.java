@@ -13,13 +13,13 @@ import java.util.List;
 
 /**
  * Created by Administrator on 2019/3/13 0013.
- * 首页列表
+ * 公众号文章列表
  */
 
-public class HomeAdapter extends BaseRvAdapter<HomeArticle> {
+public class ArticleAdapter extends BaseRvAdapter<HomeArticle> {
 
 
-    public HomeAdapter(Context context, List<HomeArticle> datas, int layoutId) {
+    public ArticleAdapter(Context context, List<HomeArticle> datas, int layoutId) {
         super(context, datas, layoutId);
     }
 
