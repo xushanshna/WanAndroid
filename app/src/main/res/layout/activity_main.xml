@@ -41,6 +41,7 @@
             app:itemIconTint="@drawable/bnv_selector"
             app:itemTextColor="@drawable/bnv_selector"
             app:labelVisibilityMode="labeled"
+            app:layout_behavior="com.example.wanandroid.widget.BottomNavigationBehavior"
             app:menu="@menu/bottom_nav" />
     </android.support.design.widget.CoordinatorLayout>
 

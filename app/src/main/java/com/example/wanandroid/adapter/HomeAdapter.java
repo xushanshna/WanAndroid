@@ -24,17 +24,34 @@ import butterknife.ButterKnife;
 public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
     private Context context;
     private List<HomeArticle> list;
+    private OnItemClickListener listener;
 
     public HomeAdapter(Context context, List<HomeArticle> list) {
         this.context = context;
         this.list = list;
     }
 
+    public void setListener(OnItemClickListener listener) {
+        this.listener = listener;
+    }
+
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View view = LayoutInflater.from(context).inflate(R.layout.home_item, viewGroup, false);
-        ViewHolder holder = new ViewHolder(view);
+        final ViewHolder holder = new ViewHolder(view);
+        //todo 实现itemclick事件
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int position = holder.getAdapterPosition();
+                if (listener != null) {
+                    listener.onClick(position);
+                }
+            }
+        });
+
+
         return holder;
 
     }
@@ -60,5 +77,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
         }
     }
 
-//    public interface OnClickListener
+    public interface OnItemClickListener {
+        void onClick(int position);
+    }
 }

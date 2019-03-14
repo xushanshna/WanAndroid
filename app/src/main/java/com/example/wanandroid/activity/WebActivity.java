@@ -5,6 +5,9 @@ import android.os.Bundle;
 
 import com.example.wanandroid.R;
 
+/**
+ * webview显示文章详情
+ */
 public class WebActivity extends AppCompatActivity {
 
     @Override

@@ -4,6 +4,7 @@ import com.example.wanandroid.bean.BannerBean;
 import com.example.wanandroid.bean.BaseArticle;
 import com.example.wanandroid.bean.BaseBean;
 import com.example.wanandroid.bean.HomeArticle;
+import com.example.wanandroid.bean.WxBean;
 
 import java.util.List;
 
@@ -26,4 +27,7 @@ public interface ApiService {
     Observable<BaseBean<BaseArticle<List<HomeArticle>>>> getHomeList(
             @Path("page") int page);
 
+    //公众号列表
+    @GET("wxarticle/chapters/json")
+    Observable<BaseBean<List<WxBean>>> getWx();
 }

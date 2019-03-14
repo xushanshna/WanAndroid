@@ -112,6 +112,14 @@ public class HomeFragment extends Fragment {
         homeAdapter = new HomeAdapter(activity, articleList);
         recyclerView.setLayoutManager(new LinearLayoutManager(activity));
         recyclerView.setAdapter(homeAdapter);
+        recyclerView.setItemAnimator(null);//关闭动画效果
+        recyclerView.setHasFixedSize(true);
+        homeAdapter.setListener(new HomeAdapter.OnItemClickListener() {
+            @Override
+            public void onClick(int position) {
+                Toast.makeText(activity, "点击：" + position, Toast.LENGTH_SHORT).show();
+            }
+        });
 
     }
 
@@ -145,7 +153,6 @@ public class HomeFragment extends Fragment {
                     public void call(BaseArticle<List<HomeArticle>> listBaseArticle) {
                         articleList.clear();
                         articleList.addAll(listBaseArticle.getDatas());
-//                        articleList = listBaseArticle.getDatas();
                         homeAdapter.notifyDataSetChanged();
                     }
                 });

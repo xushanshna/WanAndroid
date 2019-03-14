@@ -85,16 +85,16 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.bnv_home:
                         viewPager.setCurrentItem(0);
                         break;
-                    case R.id.bnv_nav:
+                    case R.id.bnv_system:
                         viewPager.setCurrentItem(1);
                         break;
-                    case R.id.bnv_project:
+                    case R.id.bnv_wechat:
                         viewPager.setCurrentItem(2);
                         break;
-                    case R.id.bnv_system:
+                    case R.id.bnv_nav:
                         viewPager.setCurrentItem(3);
                         break;
-                    case R.id.bnv_wechat:
+                    case R.id.bnv_project:
                         viewPager.setCurrentItem(4);
                         break;
                 }
