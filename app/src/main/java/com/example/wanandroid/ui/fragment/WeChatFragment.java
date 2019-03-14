@@ -1,4 +1,4 @@
-package com.example.wanandroid.fragment;
+package com.example.wanandroid.ui.fragment;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -11,7 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.wanandroid.R;
-import com.example.wanandroid.activity.ArticleActivity;
+import com.example.wanandroid.ui.activity.ArticleActivity;
 import com.example.wanandroid.adapter.WxAdapter;
 import com.example.wanandroid.adapter.base.BaseRvAdapter;
 import com.example.wanandroid.bean.WxBean;

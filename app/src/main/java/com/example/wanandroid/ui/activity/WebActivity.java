@@ -1,4 +1,4 @@
-package com.example.wanandroid.activity;
+package com.example.wanandroid.ui.activity;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;

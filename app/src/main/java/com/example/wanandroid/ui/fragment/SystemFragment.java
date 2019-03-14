@@ -1,4 +1,4 @@
-package com.example.wanandroid.fragment;
+package com.example.wanandroid.ui.fragment;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -8,15 +8,15 @@ import android.view.ViewGroup;
 
 import com.example.wanandroid.R;
 
-public class ProjectFragment extends Fragment {
+public class SystemFragment extends Fragment {
     private static final String KEY_MSG = "msg";
     private String msg;
 
-    public ProjectFragment() {
+    public SystemFragment() {
     }
 
-    public static ProjectFragment newInstance(String param1) {
-        ProjectFragment fragment = new ProjectFragment();
+    public static SystemFragment newInstance(String param1) {
+        SystemFragment fragment = new SystemFragment();
         Bundle args = new Bundle();
         args.putString(KEY_MSG, param1);
         fragment.setArguments(args);
@@ -35,6 +35,7 @@ public class ProjectFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_project, container, false);
+        return inflater.inflate(R.layout.fragment_system, container, false);
     }
+
 }

@@ -1,4 +1,4 @@
-package com.example.wanandroid;
+package com.example.wanandroid.ui.activity;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -10,12 +10,13 @@ import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.example.wanandroid.R;
 import com.example.wanandroid.adapter.ViewPagerAdapter;
-import com.example.wanandroid.fragment.HomeFragment;
-import com.example.wanandroid.fragment.NavFragment;
-import com.example.wanandroid.fragment.ProjectFragment;
-import com.example.wanandroid.fragment.SystemFragment;
-import com.example.wanandroid.fragment.WeChatFragment;
+import com.example.wanandroid.ui.fragment.HomeFragment;
+import com.example.wanandroid.ui.fragment.NavFragment;
+import com.example.wanandroid.ui.fragment.ProjectFragment;
+import com.example.wanandroid.ui.fragment.SystemFragment;
+import com.example.wanandroid.ui.fragment.WeChatFragment;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,4 +1,4 @@
-package com.example.wanandroid.fragment;
+package com.example.wanandroid.ui.fragment;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -8,17 +8,20 @@ import android.view.ViewGroup;
 
 import com.example.wanandroid.R;
 
-public class SystemFragment extends Fragment {
+
+public class NavFragment extends Fragment {
     private static final String KEY_MSG = "msg";
     private String msg;
 
-    public SystemFragment() {
+
+    public NavFragment() {
+
     }
 
-    public static SystemFragment newInstance(String param1) {
-        SystemFragment fragment = new SystemFragment();
+    public static NavFragment newInstance(String msg) {
+        NavFragment fragment = new NavFragment();
         Bundle args = new Bundle();
-        args.putString(KEY_MSG, param1);
+        args.putString(KEY_MSG, msg);
         fragment.setArguments(args);
         return fragment;
     }
@@ -34,8 +37,7 @@ public class SystemFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_system, container, false);
+        View view = inflater.inflate(R.layout.fragment_nav, container, false);
+        return view;
     }
-
 }

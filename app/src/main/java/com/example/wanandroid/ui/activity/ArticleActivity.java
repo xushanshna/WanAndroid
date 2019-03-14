@@ -1,4 +1,4 @@
-package com.example.wanandroid.activity;
+package com.example.wanandroid.ui.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,6 +15,7 @@ import com.example.wanandroid.adapter.base.BaseRvAdapter;
 import com.example.wanandroid.bean.BaseArticle;
 import com.example.wanandroid.bean.HomeArticle;
 import com.example.wanandroid.net.ApiLoader;
+import com.example.wanandroid.utils.callback.InfiniteScrollListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,6 +39,8 @@ public class ArticleActivity extends AppCompatActivity {
     private List<HomeArticle> datas = new ArrayList<>();
     private ArticleAdapter adapter;
     private int currPage = 0;
+    private boolean isNoMoreData = false;
+    private boolean isDataLoading = false;
 
 
     @Override
@@ -65,18 +68,48 @@ public class ArticleActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        recyclerView.setOnScrollListener(new InfiniteScrollListener() {
+            @Override
+            protected void onLoadMore() {
+                onLoad();
+            }
 
+            @Override
+            protected boolean isNoMoreData() {
+                return isNoMoreData;
+            }
+
+            @Override
+            protected boolean isDataLoading() {
+                return isDataLoading;
+            }
+        });
+
+        //下拉刷新
         swipeRefreshLayout.setColorSchemeResources(R.color.mainColor);
         swipeRefreshLayout.setRefreshing(true);
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
+                datas.clear();
                 currPage = 0;
                 getArticleData();
+                isDataLoading = true;
             }
         });
     }
 
+    private void onLoad() {
+        if (!isDataLoading) {
+            isDataLoading = true;
+            currPage++;
+            getArticleData();
+        }
+    }
+
+    /**
+     * 请求数据
+     */
     private void getArticleData() {
         if (id == -1) return;
         ApiLoader apiLoader = new ApiLoader();
@@ -84,10 +117,13 @@ public class ArticleActivity extends AppCompatActivity {
                 .subscribe(new Action1<BaseArticle<List<HomeArticle>>>() {
                     @Override
                     public void call(BaseArticle<List<HomeArticle>> listBaseArticle) {
-                        datas.clear();
                         datas.addAll(listBaseArticle.getDatas());
                         adapter.notifyDataSetChanged();
                         swipeRefreshLayout.setRefreshing(false);
+                        isDataLoading = false;
+                        if (listBaseArticle.getCurPage() >= listBaseArticle.getTotal()) {
+                            isNoMoreData = true;
+                        }
                     }
                 });
     }

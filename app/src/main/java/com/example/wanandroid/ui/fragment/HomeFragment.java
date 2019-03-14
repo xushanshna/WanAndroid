@@ -1,4 +1,4 @@
-package com.example.wanandroid.fragment;
+package com.example.wanandroid.ui.fragment;
 
 import android.app.Activity;
 import android.content.Context;
@@ -15,7 +15,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.wanandroid.R;
-import com.example.wanandroid.activity.WebActivity;
+import com.example.wanandroid.ui.activity.WebActivity;
 import com.example.wanandroid.adapter.HomeAdapter;
 import com.example.wanandroid.adapter.base.BaseRvAdapter;
 import com.example.wanandroid.bean.BannerBean;
