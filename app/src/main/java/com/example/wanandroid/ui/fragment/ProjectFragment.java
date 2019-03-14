@@ -54,7 +54,7 @@ public class ProjectFragment extends Fragment {
 //        一共会创建2*limit+1个Fragment。超出这个limit范围的Fragment就会被销毁
         viewPager.setOffscreenPageLimit(2);
 //        FragmentStatePagerAdapter销毁时回调ondestory,需要手动保存状态
-//        FragmentPagerAdapter不回调ondestory,
+//        FragmentPagerAdapter不回调ondestory。
         viewPager.setAdapter(new FragmentStatePagerAdapter(getFragmentManager()) {
             @Override
             public Fragment getItem(int i) {
