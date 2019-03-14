@@ -25,9 +25,18 @@ public interface ApiService {
     //获取首页文章列表
     @GET("article/list/{page}/json")
     Observable<BaseBean<BaseArticle<List<HomeArticle>>>> getHomeList(
-            @Path("page") int page);
+            @Path("page") int page
+    );
 
     //公众号列表
     @GET("wxarticle/chapters/json")
     Observable<BaseBean<List<WxBean>>> getWx();
+
+    //公众号文章列表
+    @GET("wxarticle/list/{id}/{page}/json")
+    Observable<BaseBean<BaseArticle<List<HomeArticle>>>> getArticleList(
+            @Path("id") int id,
+            @Path("page") int page
+    );
+
 }

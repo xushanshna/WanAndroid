@@ -2,6 +2,7 @@ package com.example.wanandroid.fragment;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -14,7 +15,9 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.wanandroid.R;
+import com.example.wanandroid.activity.WebActivity;
 import com.example.wanandroid.adapter.HomeAdapter;
+import com.example.wanandroid.adapter.base.BaseRvAdapter;
 import com.example.wanandroid.bean.BannerBean;
 import com.example.wanandroid.bean.BaseArticle;
 import com.example.wanandroid.bean.HomeArticle;
@@ -109,18 +112,21 @@ public class HomeFragment extends Fragment {
     }
 
     private void initRv() {
-        homeAdapter = new HomeAdapter(activity, articleList);
+        homeAdapter = new HomeAdapter(activity, articleList, R.layout.home_item);
         recyclerView.setLayoutManager(new LinearLayoutManager(activity));
         recyclerView.setAdapter(homeAdapter);
         recyclerView.setItemAnimator(null);//关闭动画效果
         recyclerView.setHasFixedSize(true);
-        homeAdapter.setListener(new HomeAdapter.OnItemClickListener() {
+
+        homeAdapter.setOnItemClickListner(new BaseRvAdapter.OnItemClickListner() {
             @Override
-            public void onClick(int position) {
-                Toast.makeText(activity, "点击：" + position, Toast.LENGTH_SHORT).show();
+            public void onItemClick(View v, int position) {
+                Intent intent = new Intent(activity, WebActivity.class);
+                intent.putExtra("link", articleList.get(position).getLink());
+                intent.putExtra("title", articleList.get(position).getTitle());
+                startActivity(intent);
             }
         });
-
     }
 
     private void getBannerData() {

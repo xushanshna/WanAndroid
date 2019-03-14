@@ -77,6 +77,7 @@ public class WeChatFragment extends Fragment {
 
                 Intent intent = new Intent(activity, ArticleActivity.class);
                 intent.putExtra("id", wxBeanList.get(position).getId());
+                intent.putExtra("name", wxBeanList.get(position).getName());
                 activity.startActivity(intent);
             }
         });

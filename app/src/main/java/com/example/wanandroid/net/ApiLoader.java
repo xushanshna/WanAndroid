@@ -24,6 +24,7 @@ public class ApiLoader {
         service = ApiServiceManager.getInstance().create(ApiService.class);
     }
 
+    //处理线程切换
     private <T> Observable<T> getObservable(Observable<T> observable) {
         return observable.subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
@@ -43,5 +44,10 @@ public class ApiLoader {
 
     public Observable<List<WxBean>> getWx() {
         return getObservable(service.getWx().map(new TargetData<List<WxBean>>()));
+    }
+
+    public Observable<BaseArticle<List<HomeArticle>>> getArticleList(int id, int page) {
+        return getObservable(service.getArticleList(id, page))
+                .map(new TargetData<BaseArticle<List<HomeArticle>>>());
     }
 }
