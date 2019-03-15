@@ -11,12 +11,15 @@ import android.widget.TextView;
 
 import com.example.wanandroid.R;
 import com.example.wanandroid.adapter.ArticleAdapter;
+import com.example.wanandroid.base.BaseActivity;
 import com.example.wanandroid.base.BaseArticle;
 import com.example.wanandroid.base.BaseRvAdapter;
 import com.example.wanandroid.bean.ArticleBean;
-import com.example.wanandroid.net.http.BaseObserver;
 import com.example.wanandroid.net.ApiLoader;
+import com.example.wanandroid.net.http.BaseObserver;
 import com.example.wanandroid.utils.callback.InfiniteScrollListener;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +30,7 @@ import butterknife.ButterKnife;
 /**
  * 微信文章列表
  */
-public class ArticleActivity extends AppCompatActivity {
+public class ArticleActivity extends BaseActivity {
     @BindView(R.id.tv_title)
     TextView title;
     @BindView(R.id.recycler_view)
@@ -66,6 +69,9 @@ public class ArticleActivity extends AppCompatActivity {
                 intent.putExtra("link", datas.get(position).getLink());
                 intent.putExtra("title", datas.get(position).getTitle());
                 startActivity(intent);
+
+//                EventBus.getDefault().post(datas.get(position));
+
             }
         });
         recyclerView.setOnScrollListener(new InfiniteScrollListener() {
