@@ -9,6 +9,6 @@
 
     <include layout="@layout/list_rv" />
 
-    <include layout="@layout/loadmore"/>
+    <!--<include layout="@layout/loadmore"/>-->
 
 </android.support.design.widget.CoordinatorLayout>

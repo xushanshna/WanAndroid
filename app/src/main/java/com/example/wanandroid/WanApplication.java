@@ -3,6 +3,8 @@ package com.example.wanandroid;
 import android.app.Application;
 import android.support.annotation.Nullable;
 
+import com.example.wanandroid.utils.Constant;
+import com.example.wanandroid.utils.callback.CrashHandler;
 import com.orhanobut.logger.AndroidLogAdapter;
 import com.orhanobut.logger.FormatStrategy;
 import com.orhanobut.logger.Logger;
@@ -13,13 +15,25 @@ import com.orhanobut.logger.PrettyFormatStrategy;
  */
 
 public class WanApplication extends Application {
-    private static final boolean DEBUG = true;
     private static final String TAG = "WanApplication";
+    private static WanApplication instance;
+
+    public static WanApplication getInstance() {
+        return instance;
+    }
 
     @Override
     public void onCreate() {
         super.onCreate();
+        instance = this;
         initLogger();
+        initCrash();
+    }
+
+    //为应用设置异常处理，然后程序才可以获取未处理的异常
+    private void initCrash() {
+        CrashHandler crashHandler = CrashHandler.getInstance();
+        crashHandler.init(this);
     }
 
     private void initLogger() {
@@ -34,7 +48,7 @@ public class WanApplication extends Application {
         Logger.addLogAdapter(new AndroidLogAdapter(formatStrategy) {
             @Override
             public boolean isLoggable(int priority, @Nullable String tag) {
-                return DEBUG;
+                return Constant.DEBUG;
             }
         });
     }

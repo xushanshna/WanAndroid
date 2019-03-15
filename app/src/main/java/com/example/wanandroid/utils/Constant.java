@@ -5,5 +5,5 @@ package com.example.wanandroid.utils;
  */
 
 public class Constant {
-
+    public static final boolean DEBUG = true;
 }
