@@ -5,8 +5,8 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.example.wanandroid.R;
-import com.example.wanandroid.adapter.base.BaseRvAdapter;
-import com.example.wanandroid.adapter.base.BaseViewHolder;
+import com.example.wanandroid.base.BaseRvAdapter;
+import com.example.wanandroid.base.BaseViewHolder;
 import com.example.wanandroid.bean.WxBean;
 
 import java.util.List;

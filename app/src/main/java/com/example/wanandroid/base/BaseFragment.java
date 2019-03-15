@@ -1,4 +1,4 @@
-package com.example.wanandroid.ui.fragment;
+package com.example.wanandroid.base;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;

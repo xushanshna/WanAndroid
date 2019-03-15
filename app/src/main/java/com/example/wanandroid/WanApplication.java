@@ -9,6 +9,9 @@ import com.orhanobut.logger.AndroidLogAdapter;
 import com.orhanobut.logger.FormatStrategy;
 import com.orhanobut.logger.Logger;
 import com.orhanobut.logger.PrettyFormatStrategy;
+import com.tencent.bugly.crashreport.CrashReport;
+
+import rx.plugins.RxJavaPlugins;
 
 /**
  * Created by Administrator on 2019/3/13 0013.
@@ -26,8 +29,20 @@ public class WanApplication extends Application {
     public void onCreate() {
         super.onCreate();
         instance = this;
+        initBugly();
         initLogger();
         initCrash();
+        handleRxJavaError();
+    }
+
+    //处理rxjava2上报的异常，不处理会崩溃
+    private void handleRxJavaError() {
+
+    }
+
+    private void initBugly() {
+        CrashReport.initCrashReport(getApplicationContext(),
+                Constant.BUGLY_APP_ID, Constant.DEBUG);
     }
 
     //为应用设置异常处理，然后程序才可以获取未处理的异常

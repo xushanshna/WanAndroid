@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 
 import com.example.wanandroid.R;
 import com.example.wanandroid.bean.TabBean;
+import com.example.wanandroid.net.http.BaseObserver;
 import com.example.wanandroid.net.ApiLoader;
 
 import java.util.ArrayList;
@@ -20,7 +21,6 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
-import rx.functions.Action1;
 
 public class ProjectFragment extends Fragment {
 
@@ -77,16 +77,20 @@ public class ProjectFragment extends Fragment {
 
     private void getTabData() {
         ApiLoader apiLoader = new ApiLoader();
-        apiLoader.getTab().subscribe(new Action1<List<TabBean>>() {
+        apiLoader.getTab().subscribe(new BaseObserver<List<TabBean>>() {
             @Override
-            public void call(List<TabBean> tabBeans) {
+            public void onCompleted() {
+                linkTabAndVp();
+            }
+
+            @Override
+            public void onNext(List<TabBean> tabBeans) {
                 titles.clear();
                 fragments.clear();
                 for (TabBean tabBean : tabBeans) {
                     titles.add(tabBean.getName());
                     fragments.add(TabFragment.newInstance());
                 }
-                linkTabAndVp();
             }
         });
     }

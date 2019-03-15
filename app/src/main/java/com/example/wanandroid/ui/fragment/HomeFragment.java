@@ -15,14 +15,14 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.wanandroid.R;
-import com.example.wanandroid.ui.activity.WebActivity;
 import com.example.wanandroid.adapter.HomeAdapter;
-import com.example.wanandroid.adapter.base.BaseRvAdapter;
-import com.example.wanandroid.bean.BannerBean;
-import com.example.wanandroid.bean.BaseArticle;
+import com.example.wanandroid.base.BaseArticle;
+import com.example.wanandroid.base.BaseRvAdapter;
 import com.example.wanandroid.bean.ArticleBean;
+import com.example.wanandroid.bean.BannerBean;
+import com.example.wanandroid.net.http.BaseObserver;
 import com.example.wanandroid.net.ApiLoader;
-import com.orhanobut.logger.Logger;
+import com.example.wanandroid.ui.activity.WebActivity;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.listener.OnBannerListener;
@@ -34,7 +34,6 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
-import rx.functions.Action1;
 
 
 public class HomeFragment extends Fragment {
@@ -56,11 +55,6 @@ public class HomeFragment extends Fragment {
     Banner banner;
     @BindView(R.id.recycler_view)
     RecyclerView recyclerView;
-
-
-    public HomeFragment() {
-
-    }
 
     public static HomeFragment newInstance(String msg) {
         HomeFragment fragment = new HomeFragment();
@@ -89,7 +83,6 @@ public class HomeFragment extends Fragment {
         getBannerData();//获取banner数据
         initRv();
         getHomeListData();//获取列表数据
-
         return view;
     }
 
@@ -130,40 +123,40 @@ public class HomeFragment extends Fragment {
     }
 
     private void getBannerData() {
-        apiLoader.getBanner()
-                .subscribe(new Action1<List<BannerBean>>() {
-                    @Override
-                    public void call(List<BannerBean> bannerBeans) {
-                        bannerBeanList.clear();
-                        images.clear();
-                        titles.clear();
-                        bannerBeanList.addAll(bannerBeans);
-                        for (BannerBean bannerBean : bannerBeans) {
-                            images.add(bannerBean.getImagePath());
-                            titles.add(bannerBean.getTitle());
-                        }
-                        startBanner();
-                    }
-                }, new Action1<Throwable>() {
-                    @Override
-                    public void call(Throwable throwable) {
-                        Logger.d(throwable.getMessage());
-                    }
-                });
+        apiLoader.getBanner().subscribe(new BaseObserver<List<BannerBean>>() {
+            @Override
+            public void onCompleted() {
+                startBanner();
+            }
+
+            @Override
+            public void onNext(List<BannerBean> bannerBeans) {
+                bannerBeanList.clear();
+                images.clear();
+                titles.clear();
+                bannerBeanList.addAll(bannerBeans);
+                for (BannerBean bannerBean : bannerBeans) {
+                    images.add(bannerBean.getImagePath());
+                    titles.add(bannerBean.getTitle());
+                }
+            }
+        });
     }
 
     private void getHomeListData() {
-        apiLoader.getHomeList(++currPage)
-                .subscribe(new Action1<BaseArticle<List<ArticleBean>>>() {
-                    @Override
-                    public void call(BaseArticle<List<ArticleBean>> listBaseArticle) {
-                        articleList.clear();
-                        articleList.addAll(listBaseArticle.getDatas());
-                        homeAdapter.notifyDataSetChanged();
-                    }
-                });
-    }
+        apiLoader.getHomeList(++currPage).subscribe(new BaseObserver<BaseArticle<List<ArticleBean>>>() {
+            @Override
+            public void onCompleted() {
+                homeAdapter.notifyDataSetChanged();
+            }
 
+            @Override
+            public void onNext(BaseArticle<List<ArticleBean>> listBaseArticle) {
+                articleList.clear();
+                articleList.addAll(listBaseArticle.getDatas());
+            }
+        });
+    }
 
     @Override
     public void onDestroyView() {

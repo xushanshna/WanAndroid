@@ -1,4 +1,4 @@
-package com.example.wanandroid.bean;
+package com.example.wanandroid.base;
 
 /**
  * Created by Administrator on 2019/3/13 0013.

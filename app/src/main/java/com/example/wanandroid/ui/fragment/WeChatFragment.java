@@ -11,11 +11,12 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.wanandroid.R;
-import com.example.wanandroid.ui.activity.ArticleActivity;
 import com.example.wanandroid.adapter.WxAdapter;
-import com.example.wanandroid.adapter.base.BaseRvAdapter;
+import com.example.wanandroid.base.BaseRvAdapter;
 import com.example.wanandroid.bean.WxBean;
+import com.example.wanandroid.net.http.BaseObserver;
 import com.example.wanandroid.net.ApiLoader;
+import com.example.wanandroid.ui.activity.ArticleActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +24,6 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
-import rx.functions.Action1;
 
 
 public class WeChatFragment extends Fragment {
@@ -85,12 +85,16 @@ public class WeChatFragment extends Fragment {
 
     private void getWxData() {
         ApiLoader apiLoader = new ApiLoader();
-        apiLoader.getWx().subscribe(new Action1<List<WxBean>>() {
+        apiLoader.getWx().subscribe(new BaseObserver<List<WxBean>>() {
             @Override
-            public void call(List<WxBean> wxBeans) {
+            public void onCompleted() {
+                wxAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onNext(List<WxBean> wxBeans) {
                 wxBeanList.clear();
                 wxBeanList.addAll(wxBeans);
-                wxAdapter.notifyDataSetChanged();
             }
         });
     }

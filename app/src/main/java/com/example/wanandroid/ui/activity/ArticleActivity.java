@@ -11,9 +11,10 @@ import android.widget.TextView;
 
 import com.example.wanandroid.R;
 import com.example.wanandroid.adapter.ArticleAdapter;
-import com.example.wanandroid.adapter.base.BaseRvAdapter;
-import com.example.wanandroid.bean.BaseArticle;
+import com.example.wanandroid.base.BaseArticle;
+import com.example.wanandroid.base.BaseRvAdapter;
 import com.example.wanandroid.bean.ArticleBean;
+import com.example.wanandroid.net.http.BaseObserver;
 import com.example.wanandroid.net.ApiLoader;
 import com.example.wanandroid.utils.callback.InfiniteScrollListener;
 
@@ -22,7 +23,6 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import rx.functions.Action1;
 
 /**
  * 微信文章列表
@@ -112,19 +112,21 @@ public class ArticleActivity extends AppCompatActivity {
      */
     private void getArticleData() {
         if (id == -1) return;
-        ApiLoader apiLoader = new ApiLoader();
-        apiLoader.getArticleList(id, currPage)
-                .subscribe(new Action1<BaseArticle<List<ArticleBean>>>() {
-                    @Override
-                    public void call(BaseArticle<List<ArticleBean>> listBaseArticle) {
-                        datas.addAll(listBaseArticle.getDatas());
-                        adapter.notifyDataSetChanged();
-                        swipeRefreshLayout.setRefreshing(false);
-                        isDataLoading = false;
-                        if (listBaseArticle.getCurPage() >= listBaseArticle.getTotal()) {
-                            isNoMoreData = true;
-                        }
-                    }
-                });
+        new ApiLoader().getArticleList(id, currPage).subscribe(new BaseObserver<BaseArticle<List<ArticleBean>>>() {
+            @Override
+            public void onCompleted() {
+                adapter.notifyDataSetChanged();
+                swipeRefreshLayout.setRefreshing(false);
+                isDataLoading = false;
+            }
+
+            @Override
+            public void onNext(BaseArticle<List<ArticleBean>> listBaseArticle) {
+                datas.addAll(listBaseArticle.getDatas());
+                if (listBaseArticle.getCurPage() >= listBaseArticle.getTotal()) {
+                    isNoMoreData = true;
+                }
+            }
+        });
     }
 }

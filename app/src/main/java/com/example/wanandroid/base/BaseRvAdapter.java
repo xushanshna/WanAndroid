@@ -1,4 +1,4 @@
-package com.example.wanandroid.adapter.base;
+package com.example.wanandroid.base;
 
 import android.content.Context;
 import android.support.annotation.NonNull;

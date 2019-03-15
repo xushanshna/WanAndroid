@@ -6,4 +6,5 @@ package com.example.wanandroid.utils;
 
 public class Constant {
     public static final boolean DEBUG = true;
+    public static final String BUGLY_APP_ID = "778dea585d";
 }

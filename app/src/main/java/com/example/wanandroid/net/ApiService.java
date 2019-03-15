@@ -2,8 +2,8 @@ package com.example.wanandroid.net;
 
 import com.example.wanandroid.bean.ArticleBean;
 import com.example.wanandroid.bean.BannerBean;
-import com.example.wanandroid.bean.BaseArticle;
-import com.example.wanandroid.bean.BaseBean;
+import com.example.wanandroid.base.BaseArticle;
+import com.example.wanandroid.base.BaseBean;
 import com.example.wanandroid.bean.TabBean;
 import com.example.wanandroid.bean.WxBean;
 

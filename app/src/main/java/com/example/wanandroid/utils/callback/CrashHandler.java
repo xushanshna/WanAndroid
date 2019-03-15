@@ -79,7 +79,9 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
     public void uncaughtException(Thread thread, Throwable ex) {
 
         //导出异常信息到SD卡中
+/*
         dumpExceptionToSDCard(ex);
+*/
         //异常信息上传到服务器
         uploadExceptionToServer();
 
